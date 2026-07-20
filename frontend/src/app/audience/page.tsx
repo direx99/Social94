@@ -14,18 +14,18 @@ import { useToast } from '@/components/ui/Toast';
 
 const PLATFORMS = [
   { key: 'instagram', name: 'Instagram', emoji: '📸', color: '#E1306C', bgLight: '#FFF0F5', borderColor: '#F48FB1', textColor: '#880E4F', mutedColor: '#AD1457', placeholder: 'https://instagram.com/nasa or @nasa', apiRoute: '/api/instagram-scrape', apiKey: 'url' },
-  { key: 'facebook',  name: 'Facebook',  emoji: '👥', color: '#1877F2', bgLight: '#EBF3FF', borderColor: '#90CAF9', textColor: '#0D3B8E', mutedColor: '#1565C0', placeholder: 'https://facebook.com/nasa or nasa', apiRoute: '/api/social-scrape', apiKey: 'url' },
-  { key: 'tiktok',   name: 'TikTok',    emoji: '🎵', color: '#010101', bgLight: '#F3F3F3', borderColor: '#B0B0B0', textColor: '#111', mutedColor: '#333', placeholder: 'https://tiktok.com/@nasa or @nasa', apiRoute: '/api/social-scrape', apiKey: 'url' },
-  { key: 'youtube',  name: 'YouTube',   emoji: '▶️', color: '#FF0000', bgLight: '#FFF3F3', borderColor: '#FFCDD2', textColor: '#B71C1C', mutedColor: '#C62828', placeholder: 'https://youtube.com/@NASA or @NASA', apiRoute: '/api/social-scrape', apiKey: 'url' },
+  { key: 'facebook', name: 'Facebook', emoji: '👥', color: '#1877F2', bgLight: '#EBF3FF', borderColor: '#90CAF9', textColor: '#0D3B8E', mutedColor: '#1565C0', placeholder: 'https://facebook.com/nasa or nasa', apiRoute: '/api/social-scrape', apiKey: 'url' },
+  { key: 'tiktok', name: 'TikTok', emoji: '🎵', color: '#010101', bgLight: '#F3F3F3', borderColor: '#B0B0B0', textColor: '#111', mutedColor: '#333', placeholder: 'https://tiktok.com/@nasa or @nasa', apiRoute: '/api/social-scrape', apiKey: 'url' },
+  { key: 'youtube', name: 'YouTube', emoji: '▶️', color: '#FF0000', bgLight: '#FFF3F3', borderColor: '#FFCDD2', textColor: '#B71C1C', mutedColor: '#C62828', placeholder: 'https://youtube.com/@NASA or @NASA', apiRoute: '/api/social-scrape', apiKey: 'url' },
 ] as const;
 
 type PlatformKey = typeof PLATFORMS[number]['key'];
 
 const pieColors: Record<PlatformKey, string> = {
   instagram: '#E1306C',
-  facebook:  '#1877F2',
-  tiktok:    '#2DD4BF',
-  youtube:   '#FF0000',
+  facebook: '#1877F2',
+  tiktok: '#2DD4BF',
+  youtube: '#FF0000',
 };
 
 // ─── Scrape state per platform ────────────────────────────────────────────────
@@ -56,9 +56,9 @@ export default function AudiencePage() {
   // Per-platform scrape state
   const [scrape, setScrape] = useState<Record<PlatformKey, ScrapeState>>({
     instagram: initScrape(),
-    facebook:  initScrape(),
-    tiktok:    initScrape(),
-    youtube:   initScrape(),
+    facebook: initScrape(),
+    tiktok: initScrape(),
+    youtube: initScrape(),
   });
 
   // Edit form state
@@ -75,17 +75,17 @@ export default function AudiencePage() {
       const plat = s.platformStats ?? [];
       setEditForm({
         instagram: plat.find((p) => p.name === 'Instagram')?.followers ?? 0,
-        facebook:  plat.find((p) => p.name === 'Facebook')?.followers ?? 0,
-        tiktok:    plat.find((p) => p.name === 'TikTok')?.followers ?? 0,
-        youtube:   plat.find((p) => p.name === 'YouTube')?.followers ?? 0,
+        facebook: plat.find((p) => p.name === 'Facebook')?.followers ?? 0,
+        tiktok: plat.find((p) => p.name === 'TikTok')?.followers ?? 0,
+        youtube: plat.find((p) => p.name === 'YouTube')?.followers ?? 0,
         engagementRate: s.engagementRate ?? 0,
-        newFollowers:   s.newFollowers ?? 0,
+        newFollowers: s.newFollowers ?? 0,
         avgReachPerPost: s.avgReachPerPost ?? 0,
         age1824: s.ageData?.[0]?.percentage ?? 0,
         age2534: s.ageData?.[1]?.percentage ?? 0,
         age3544: s.ageData?.[2]?.percentage ?? 0,
         age4554: s.ageData?.[3]?.percentage ?? 0,
-        age55:   s.ageData?.[4]?.percentage ?? 0,
+        age55: s.ageData?.[4]?.percentage ?? 0,
       });
       setLoading(false);
     });
@@ -100,25 +100,25 @@ export default function AudiencePage() {
       const totalFollowers = editForm.instagram + editForm.facebook + editForm.tiktok + editForm.youtube;
       const platformStats = [
         { name: 'Instagram', followers: editForm.instagram, growth: '+0%' },
-        { name: 'Facebook',  followers: editForm.facebook,  growth: '+0%' },
-        { name: 'TikTok',   followers: editForm.tiktok,    growth: '+0%' },
-        { name: 'YouTube',  followers: editForm.youtube,   growth: '+0%' },
+        { name: 'Facebook', followers: editForm.facebook, growth: '+0%' },
+        { name: 'TikTok', followers: editForm.tiktok, growth: '+0%' },
+        { name: 'YouTube', followers: editForm.youtube, growth: '+0%' },
       ];
       const ageData = [
         { age: '18–24', percentage: editForm.age1824 },
         { age: '25–34', percentage: editForm.age2534 },
         { age: '35–44', percentage: editForm.age3544 },
         { age: '45–54', percentage: editForm.age4554 },
-        { age: '55+',   percentage: editForm.age55 },
+        { age: '55+', percentage: editForm.age55 },
       ];
       const now = new Date();
       const monthName = now.toLocaleString('default', { month: 'short' });
       const newPoint = {
         month: monthName,
         instagram: editForm.instagram,
-        facebook:  editForm.facebook,
-        tiktok:    editForm.tiktok,
-        youtube:   editForm.youtube,
+        facebook: editForm.facebook,
+        tiktok: editForm.tiktok,
+        youtube: editForm.youtube,
       };
       const existing = stats.reachOverTime ?? [];
       const updated = existing.some((p) => p.month === monthName)
@@ -164,6 +164,7 @@ export default function AudiencePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
+
       const data = await res.json();
 
       if (data.success && data.data) {
@@ -221,9 +222,9 @@ export default function AudiencePage() {
 
   const summaryStats = [
     { label: 'Total Followers', value: totalFollowers >= 1000 ? `${(totalFollowers / 1000).toFixed(1)}K` : totalFollowers.toString(), icon: Users, color: 'purple' },
-    { label: 'Avg Reach/Post',  value: stats.avgReachPerPost >= 1000 ? `${(stats.avgReachPerPost / 1000).toFixed(1)}K` : stats.avgReachPerPost.toString(), icon: Eye, color: 'cyan' },
+    { label: 'Avg Reach/Post', value: stats.avgReachPerPost >= 1000 ? `${(stats.avgReachPerPost / 1000).toFixed(1)}K` : stats.avgReachPerPost.toString(), icon: Eye, color: 'cyan' },
     { label: 'Engagement Rate', value: `${stats.engagementRate}%`, icon: TrendingUp, color: 'emerald' },
-    { label: 'New Followers',   value: stats.newFollowers >= 1000 ? `${(stats.newFollowers / 1000).toFixed(1)}K` : stats.newFollowers.toString(), icon: ArrowUpRight, color: 'amber' },
+    { label: 'New Followers', value: stats.newFollowers >= 1000 ? `${(stats.newFollowers / 1000).toFixed(1)}K` : stats.newFollowers.toString(), icon: ArrowUpRight, color: 'amber' },
   ];
 
   // ── Render ───────────────────────────────────────────────────────────────────
@@ -312,7 +313,7 @@ export default function AudiencePage() {
                     <defs>
                       {(['instagram', 'facebook', 'tiktok', 'youtube'] as PlatformKey[]).map((k) => (
                         <linearGradient key={k} id={`grad-${k}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%"  stopColor={pieColors[k]} stopOpacity={0.15} />
+                          <stop offset="5%" stopColor={pieColors[k]} stopOpacity={0.15} />
                           <stop offset="95%" stopColor={pieColors[k]} stopOpacity={0.01} />
                         </linearGradient>
                       ))}
@@ -323,9 +324,9 @@ export default function AudiencePage() {
                     <Tooltip formatter={(v) => [(v as number) >= 1000 ? `${((v as number) / 1000).toFixed(1)}K` : v, '']} contentStyle={{ borderRadius: '10px', border: '1px solid var(--border)' }} />
                     <Legend />
                     <Area type="monotone" dataKey="instagram" stroke={pieColors.instagram} fill="url(#grad-instagram)" strokeWidth={2} name="Instagram" />
-                    <Area type="monotone" dataKey="facebook"  stroke={pieColors.facebook}  fill="url(#grad-facebook)"  strokeWidth={2} name="Facebook" />
-                    <Area type="monotone" dataKey="tiktok"    stroke={pieColors.tiktok}    fill="url(#grad-tiktok)"    strokeWidth={2} name="TikTok" />
-                    <Area type="monotone" dataKey="youtube"   stroke={pieColors.youtube}   fill="url(#grad-youtube)"   strokeWidth={2} name="YouTube" />
+                    <Area type="monotone" dataKey="facebook" stroke={pieColors.facebook} fill="url(#grad-facebook)" strokeWidth={2} name="Facebook" />
+                    <Area type="monotone" dataKey="tiktok" stroke={pieColors.tiktok} fill="url(#grad-tiktok)" strokeWidth={2} name="TikTok" />
+                    <Area type="monotone" dataKey="youtube" stroke={pieColors.youtube} fill="url(#grad-youtube)" strokeWidth={2} name="YouTube" />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -547,7 +548,7 @@ export default function AudiencePage() {
                 {[
                   { key: 'age1824', label: '18–24' }, { key: 'age2534', label: '25–34' },
                   { key: 'age3544', label: '35–44' }, { key: 'age4554', label: '45–54' },
-                  { key: 'age55',   label: '55+' },
+                  { key: 'age55', label: '55+' },
                 ].map(({ key, label }) => (
                   <div className="form-group" key={key}>
                     <label className="form-label" style={{ fontSize: '11px' }}>{label}</label>
