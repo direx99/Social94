@@ -54,6 +54,6 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   // Authenticated
   if (user) return <>{children}</>;
 
-  // Redirecting — render nothing
+  // Redirecting - render nothing
   return null;
 }

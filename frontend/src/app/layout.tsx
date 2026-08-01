@@ -7,12 +7,12 @@ import { AuthProvider } from "@/context/AuthContext";
 import { AuthGuard } from "@/components/AuthGuard";
 
 export const metadata: Metadata = {
-  title: "Social94 — Automated Social Media Marketing",
+  title: "Social94 - Automated Social Media Marketing",
   description: "AI-powered social media marketing automation platform. Check audience reach, analyze content quality, manage campaigns, and automate reminders.",
   keywords: "social media marketing, automation, audience analytics, content quality, AI marketing",
   openGraph: {
     title: "Social94",
-    description: "Automated Social Media Marketing Tool powered by Gemini AI",
+    description: "Automated Social Media Marketing Tool powered by AI",
     type: "website",
   },
 };

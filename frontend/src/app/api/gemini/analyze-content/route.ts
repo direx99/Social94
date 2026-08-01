@@ -22,7 +22,7 @@ function buildTextPrompt(content: string, platforms: string[], hasImage: boolean
 
 Post Content:
 "${content}"
-${hasImage ? '\nAn image has been provided — evaluate how well it complements the text, note any text visible in the image, and factor image quality/appeal into the overall score.' : ''}
+${hasImage ? '\nAn image has been provided - evaluate how well it complements the text, note any text visible in the image, and factor image quality/appeal into the overall score.' : ''}
 
 Provide a detailed JSON analysis with the following structure (return ONLY valid JSON, no markdown):
 ${ANALYSIS_SCHEMA}`;
@@ -30,7 +30,7 @@ ${ANALYSIS_SCHEMA}`;
 }
 
 function buildImagePrompt(platforms: string[]): string {
-  return `You are a social media marketing expert. Analyze the provided image for use on ${platforms.join(', ') || 'social media'}. There is no caption text — evaluate the image itself (visual appeal, clarity, brand suitability, any visible text) and generate an appropriate caption, hashtags, and quality scores.
+  return `You are a social media marketing expert. Analyze the provided image for use on ${platforms.join(', ') || 'social media'}. There is no caption text - evaluate the image itself (visual appeal, clarity, brand suitability, any visible text) and generate an appropriate caption, hashtags, and quality scores.
 
 Provide a detailed JSON analysis with the following structure (return ONLY valid JSON, no markdown):
 ${ANALYSIS_SCHEMA}`;

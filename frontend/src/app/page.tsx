@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Users, TrendingUp, FileText, Megaphone, Bell, ArrowUpRight, Zap, Eye, Heart, Share2, ChevronRight, Clock, Plus } from 'lucide-react';
+import { PlatformIcon } from '@/components/ui/PlatformIcon';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { getUserStats, subscribeToCampaigns, subscribeToReminders, type UserStats, type Campaign, type Reminder } from '@/lib/firestore';
@@ -55,8 +56,8 @@ export default function DashboardPage() {
   const pendingReminders = reminders.filter((r) => r.status === 'pending').length;
 
   const statCards = [
-    { label: 'Total Reach', value: stats ? `${(stats.totalReach / 1000).toFixed(1)}K` : '—', change: `${stats?.engagementRate ?? 0}% rate`, icon: Users, color: 'purple' },
-    { label: 'Engagement Rate', value: stats ? `${stats.engagementRate}%` : '—', change: 'this month', icon: TrendingUp, color: 'emerald' },
+    { label: 'Total Reach', value: stats ? `${(stats.totalReach / 1000).toFixed(1)}K` : '-', change: `${stats?.engagementRate ?? 0}% rate`, icon: Users, color: 'purple' },
+    { label: 'Engagement Rate', value: stats ? `${stats.engagementRate}%` : '-', change: 'this month', icon: TrendingUp, color: 'emerald' },
     { label: 'Active Campaigns', value: activeCampaigns.toString(), change: `${campaigns.length} total`, icon: Megaphone, color: 'amber' },
     { label: 'Pending Reminders', value: pendingReminders.toString(), change: `${reminders.length} total`, icon: Bell, color: 'cyan' },
   ];
@@ -209,7 +210,7 @@ export default function DashboardPage() {
                   return (
                     <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                       <div style={{ width: 40, height: 40, borderRadius: 'var(--radius-md)', background: `${platformColors[p.name] ?? '#7C3AED'}18`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0 }}>
-                        {p.name === 'Instagram' ? '📸' : p.name === 'Facebook' ? '👥' : p.name === 'LinkedIn' ? '💼' : '🐦'}
+                        <PlatformIcon platform={p.name} size={20} />
                       </div>
                       <div style={{ flex: 1 }}>
                         <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>{p.name}</div>

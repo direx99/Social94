@@ -28,6 +28,7 @@ export function Sidebar() {
   const router = useRouter();
   const { user, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [showProModal, setShowProModal] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -114,9 +115,9 @@ export function Sidebar() {
             padding: '16px',
             color: 'white',
           }}>
-            <div style={{ fontSize: '13px', fontWeight: 700, marginBottom: '6px' }}>✨ Powered by Gemini AI</div>
+            <div style={{ fontSize: '13px', fontWeight: 700, marginBottom: '6px' }}>✨ Powered by AI</div>
             <div style={{ fontSize: '12px', opacity: 0.85, marginBottom: '12px' }}>Unlock unlimited AI analysis</div>
-            <button style={{
+            <button onClick={() => setShowProModal(true)} style={{
               background: 'white', color: '#7C3AED', border: 'none',
               borderRadius: '8px', padding: '7px 14px', fontSize: '12px',
               fontWeight: 700, cursor: 'pointer', width: '100%',
@@ -161,6 +162,22 @@ export function Sidebar() {
           </div>
         </div>
       </aside>
+
+      {/* Coming Soon Modal */}
+      {showProModal && (
+        <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && setShowProModal(false)} style={{ zIndex: 9999 }}>
+          <div className="modal" style={{ maxWidth: 320, textAlign: 'center', padding: '32px 24px' }}>
+            <div style={{ fontSize: 40, marginBottom: 16 }}>🚀</div>
+            <h2 style={{ fontSize: 20, fontWeight: 800, marginBottom: 8, color: 'var(--text-primary)' }}>Coming Soon</h2>
+            <p style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 24, lineHeight: 1.5 }}>
+              The Pro plan is currently under development and will be available soon!
+            </p>
+            <button className="btn btn-primary" onClick={() => setShowProModal(false)} style={{ width: '100%', justifyContent: 'center' }}>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

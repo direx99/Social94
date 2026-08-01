@@ -85,7 +85,7 @@ async function scrapeFacebook(input: string): Promise<SocialProfileData> {
   const followerMatch = desc.match(/([\d,.]+[KkMmBb]?)\s*(?:followers|people follow)/i);
   if (followerMatch) followers = parseCount(followerMatch[1]);
 
-  // Also try from page source — "follower_count":12345
+  // Also try from page source - "follower_count":12345
   const fcMatch = html.match(/"follower_count"\s*:\s*(\d+)/);
   if (fcMatch && followers === 0) followers = parseInt(fcMatch[1], 10);
 

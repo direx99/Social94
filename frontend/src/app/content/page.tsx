@@ -165,14 +165,14 @@ export default function ContentPage() {
       <div style={{ background: 'var(--bg-surface)', borderBottom: '1px solid var(--border)', padding: '0 32px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 50 }}>
         <div>
           <h1 style={{ fontSize: '20px', fontWeight: 800, fontFamily: 'Outfit, sans-serif' }}>Content Quality Checker</h1>
-          <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>Analyze &amp; optimize your posts with Gemini AI</p>
+          <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>Analyze & optimize your posts with AI</p>
         </div>
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           {saving && <span style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}><span className="spinner spinner-sm" />Saving...</span>}
           <button className="btn btn-secondary btn-sm" onClick={() => setShowHistory(!showHistory)}>
             <History size={14} />History ({history.length})
           </button>
-          <div className="ai-badge"><span className="ai-dot" />Powered by Gemini AI</div>
+          <div className="ai-badge"><span className="ai-dot" />Powered by AI</div>
         </div>
       </div>
 
@@ -233,7 +233,7 @@ export default function ContentPage() {
             <div className="card card-body">
               <div className="form-label" style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <ImageIcon size={15} color="var(--primary)" />
-                Upload Image <span style={{ fontSize: '11px', fontWeight: 400, color: 'var(--text-muted)' }}>(optional — Gemini Vision will analyze it)</span>
+                Upload Image <span style={{ fontSize: '11px', fontWeight: 400, color: 'var(--text-muted)' }}>(optional - AI will analyze it)</span>
               </div>
 
               {imagePreview ? (
@@ -297,19 +297,19 @@ export default function ContentPage() {
                 <div className="form-label">Post Content {imageFile && <span style={{ fontWeight: 400, color: 'var(--text-muted)', fontSize: '12px' }}>(optional when image is provided)</span>}</div>
                 <span style={{ fontSize: '12px', color: charPercent > 90 ? '#F43F5E' : 'var(--text-muted)' }}>{content.length} / {charLimit}</span>
               </div>
-              <textarea className="form-input form-textarea" style={{ minHeight: '160px' }} placeholder={imageFile ? 'Add caption text (optional — AI can work from image alone)...' : 'Paste or type your social media post here...'} value={content} onChange={(e) => setContent(e.target.value)} />
+              <textarea className="form-input form-textarea" style={{ minHeight: '160px' }} placeholder={imageFile ? 'Add caption text (optional - AI can work from image alone)...' : 'Paste or type your social media post here...'} value={content} onChange={(e) => setContent(e.target.value)} />
               <div className="progress-bar" style={{ marginTop: '8px' }}>
                 <div style={{ height: '100%', borderRadius: '9999px', background: charPercent > 90 ? '#F43F5E' : charPercent > 70 ? '#F59E0B' : '#7C3AED', width: `${charPercent}%`, transition: 'width 0.3s' }} />
               </div>
               <button className="btn btn-primary" style={{ width: '100%', marginTop: '16px', justifyContent: 'center' }} onClick={analyze} disabled={loading || (!content.trim() && !imageFile)}>
-                {loading ? <><span className="spinner spinner-sm" />Analyzing with Gemini AI...</> : <><Zap size={17} />{imageFile ? 'Analyze Image & Content' : 'Analyze Content Quality'}</>}
+                {loading ? <><span className="spinner spinner-sm" />Analyzing with AI...</> : <><Zap size={17} />{imageFile ? 'Analyze Image & Content' : 'Analyze Content Quality'}</>}
               </button>
             </div>
 
             {/* Tips */}
             <div className="card card-body" style={{ background: 'var(--primary-light)', border: '1px solid rgba(124,58,237,0.15)' }}>
               <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--primary)', marginBottom: '10px' }}>💡 Quick Tips</div>
-              {['Upload an image to let Gemini Vision analyze visual quality & relevance', 'Keep Instagram captions between 138–150 characters for best engagement', 'Use 3–5 targeted hashtags (not 30)', 'Start with a hook — ask a question or use a bold statement'].map((tip, i) => (
+              {['Upload an image to let AI analyze visual quality & relevance', 'Keep Instagram captions between 138–150 characters for best engagement', 'Use 3–5 targeted hashtags (not 30)', 'Start with a hook - ask a question or use a bold statement'].map((tip, i) => (
                 <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px', fontSize: '13px', color: 'var(--primary-dark)' }}>
                   <span style={{ marginTop: '1px', flexShrink: 0 }}>•</span>{tip}
                 </div>
@@ -336,7 +336,7 @@ export default function ContentPage() {
               <div className="card" style={{ textAlign: 'center', padding: '60px 24px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}><div className="spinner" /></div>
                 <div style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>Analyzing your content{imageFile ? ' & image' : ''}...</div>
-                <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Gemini AI{imageFile ? ' Vision' : ''} is reviewing your post</div>
+                <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>AI is reviewing your post</div>
               </div>
             )}
 

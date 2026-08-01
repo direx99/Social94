@@ -25,7 +25,7 @@ const faqs = [
       },
       {
         q: 'What is the AI Content Quality analyser?',
-        a: 'The Content Quality page lets you paste any social media post. Our Gemini AI engine scores it across 6 dimensions — engagement potential, readability, sentiment, hashtags, emojis, and optimal posting time — then gives you actionable improvements.',
+        a: 'The Content Quality page lets you paste any social media post. Our AI engine scores it across 6 dimensions - engagement potential, readability, sentiment, hashtags, emojis, and optimal posting time - then gives you actionable improvements.',
       },
     ],
   },
@@ -36,15 +36,15 @@ const faqs = [
     items: [
       {
         q: 'How many AI analyses can I run per day?',
-        a: 'On the Free plan you can run up to 5 AI content analyses per day. Upgrading to Pro gives you unlimited daily analyses, priority processing, and access to advanced image analysis features powered by Gemini Vision.',
+        a: 'On the Free plan you can run up to 5 AI content analyses per day. Upgrading to Pro gives you unlimited daily analyses, priority processing, and access to advanced image analysis features powered by AI.',
       },
       {
         q: 'How accurate are the AI insights?',
-        a: 'Our AI insights are powered by Google Gemini Pro, one of the most capable language models available. Accuracy is generally high for text-based analysis, but we recommend treating insights as a guide rather than absolute truth. Always combine AI suggestions with your own audience knowledge.',
+        a: 'Our AI insights are powered by advanced AI models, among the most capable language models available. Accuracy is generally high for text-based analysis, but we recommend treating insights as a guide rather than absolute truth. Always combine AI suggestions with your own audience knowledge.',
       },
       {
         q: 'Can I analyse images and videos?',
-        a: 'Image analysis is available in the Content Quality page — you can upload images alongside your post text for a combined score. Video analysis is on our roadmap for a future release.',
+        a: 'Image analysis is available in the Content Quality page - you can upload images alongside your post text for a combined score. Video analysis is on our roadmap for a future release.',
       },
     ],
   },
@@ -59,7 +59,7 @@ const faqs = [
       },
       {
         q: 'Can I duplicate or edit a campaign?',
-        a: 'Yes — on the Campaigns page, each campaign card has an Edit button that opens a full edit modal. You can update any field including status, dates, budget, and platform targeting.',
+        a: 'Yes - on the Campaigns page, each campaign card has an Edit button that opens a full edit modal. You can update any field including status, dates, budget, and platform targeting.',
       },
       {
         q: 'What campaign statuses are available?',
@@ -334,7 +334,7 @@ export default function HelpPage() {
             <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981' }} /> All Systems Operational
             </div>
-            {['API Services', 'Gemini AI Engine', 'Firebase Database', 'Authentication'].map((s) => (
+            {['API Services', 'AI Engine', 'Firebase Database', 'Authentication'].map((s) => (
               <div key={s} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--border-light)', fontSize: 13 }}>
                 <span style={{ color: '#475569' }}>{s}</span>
                 <span style={{ color: '#10B981', fontWeight: 600, fontSize: 11 }}>Operational</span>

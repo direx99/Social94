@@ -13,10 +13,16 @@ const features = [
 ];
 
 export default function LoginPage() {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, signInWithEmailAndPassword, signUpWithEmailAndPassword } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -30,6 +36,27 @@ export default function LoginPage() {
     setLoading(false);
   };
 
+  const handleEmailAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password || (isSignUp && (!firstName || !lastName))) {
+      setError('Please fill in all fields.');
+      return;
+    }
+    setLoading(true);
+    setError('');
+    try {
+      if (isSignUp) {
+        await signUpWithEmailAndPassword(email, password, firstName, lastName);
+      } else {
+        await signInWithEmailAndPassword(email, password);
+      }
+      router.replace('/');
+    } catch (err: any) {
+      setError(err.message || 'Authentication failed. Please try again.');
+    }
+    setLoading(false);
+  };
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -37,7 +64,7 @@ export default function LoginPage() {
       gridTemplateColumns: '1fr 1fr',
       background: 'var(--bg-base)',
     }}>
-      {/* Left — Brand Panel */}
+      {/* Left - Brand Panel */}
       <div style={{
         background: 'linear-gradient(145deg, #5B21B6 0%, #7C3AED 40%, #06B6D4 100%)',
         display: 'flex',
@@ -102,12 +129,12 @@ export default function LoginPage() {
         <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
           <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Zap size={13} />
-            Powered by Gemini 2.0 Flash AI
+            Powered by AI
           </div>
         </div>
       </div>
 
-      {/* Right — Login Panel */}
+      {/* Right - Login Panel */}
       <div style={{
         display: 'flex',
         flexDirection: 'column',
@@ -118,13 +145,81 @@ export default function LoginPage() {
       }}>
         <div style={{ width: '100%', maxWidth: '400px' }}>
           {/* Header */}
-          <div style={{ marginBottom: '40px', textAlign: 'center' }}>
+          <div style={{ marginBottom: '32px', textAlign: 'center' }}>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '30px', fontWeight: 800, marginBottom: '10px', letterSpacing: '-0.5px' }}>
-              Welcome back 👋
+              {isSignUp ? 'Create an account 🚀' : 'Welcome back 👋'}
             </h2>
             <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-              Sign in to your Social94 dashboard and start managing your social media smarter.
+              {isSignUp ? 'Sign up for Social94 to start automating your social media marketing.' : 'Sign in to your Social94 dashboard and start managing your social media smarter.'}
             </p>
+          </div>
+
+          {/* Email/Password Form */}
+          <form onSubmit={handleEmailAuth} style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
+            {isSignUp && (
+              <div style={{ display: 'flex', gap: '16px' }}>
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  disabled={loading}
+                  style={{ flex: 1, padding: '12px 16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', background: 'var(--bg-base)', color: 'var(--text-primary)', fontSize: '15px', outline: 'none' }}
+                />
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  disabled={loading}
+                  style={{ flex: 1, padding: '12px 16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', background: 'var(--bg-base)', color: 'var(--text-primary)', fontSize: '15px', outline: 'none' }}
+                />
+              </div>
+            )}
+            <input
+              type="email"
+              placeholder="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
+              style={{ padding: '12px 16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', background: 'var(--bg-base)', color: 'var(--text-primary)', fontSize: '15px', outline: 'none' }}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+              style={{ padding: '12px 16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', background: 'var(--bg-base)', color: 'var(--text-primary)', fontSize: '15px', outline: 'none' }}
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '14px 24px',
+                borderRadius: 'var(--radius-lg)',
+                background: 'var(--primary)',
+                color: 'white',
+                fontSize: '15px',
+                fontWeight: 600,
+                border: 'none',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                opacity: loading ? 0.7 : 1,
+                fontFamily: 'Inter, sans-serif',
+                marginTop: '8px',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              {loading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Sign In')}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+            <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
+            <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Or continue with</span>
+            <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
           </div>
 
           {/* Google Sign In */}
@@ -166,10 +261,10 @@ export default function LoginPage() {
             ) : (
               /* Google logo SVG */
               <svg width="20" height="20" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
             )}
             {loading ? 'Signing in...' : 'Continue with Google'}
@@ -189,6 +284,21 @@ export default function LoginPage() {
               {error}
             </div>
           )}
+
+          {/* Toggle Sign In / Sign Up */}
+          <p style={{ textAlign: 'center', fontSize: '14px', color: 'var(--text-muted)', marginTop: '24px' }}>
+            {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+            <button
+              type="button"
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setError('');
+              }}
+              style={{ background: 'none', border: 'none', color: 'var(--primary)', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+            >
+              {isSignUp ? 'Sign In' : 'Sign Up'}
+            </button>
+          </p>
 
           {/* Divider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', margin: '28px 0' }}>

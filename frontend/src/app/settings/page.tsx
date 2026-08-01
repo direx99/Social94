@@ -400,7 +400,7 @@ export default function SettingsPage() {
                     { key: 'campaignAlerts', label: 'Campaign Alerts', desc: 'Get notified when campaigns start, end, or need attention' },
                     { key: 'reminderPush', label: 'Reminder Notifications', desc: 'Push alerts for scheduled social media posts' },
                     { key: 'weeklyReport', label: 'Weekly Performance Report', desc: 'Detailed weekly review delivered every Monday' },
-                    { key: 'aiInsights', label: 'AI Insights', desc: 'Gemini AI tips and optimisation suggestions' },
+                    { key: 'aiInsights', label: 'AI Insights', desc: 'AI tips and optimisation suggestions' },
                   ].map((item) => (
                     <div key={item.key} className="ditem">
                       <div>
@@ -423,9 +423,9 @@ export default function SettingsPage() {
                     <SectionHead icon={Database} title="Your Data" subtitle="Overview of data stored in your account" color="#10B981" />
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 24 }}>
                       {[
-                        { label: 'Campaigns', value: loadingStats ? '—' : stats.campaigns, icon: '📣', color: '#7C3AED' },
-                        { label: 'Reminders', value: loadingStats ? '—' : stats.reminders, icon: '🔔', color: '#06B6D4' },
-                        { label: 'Post Analyses', value: loadingStats ? '—' : stats.posts, icon: '📊', color: '#10B981' },
+                        { label: 'Campaigns', value: loadingStats ? '-' : stats.campaigns, icon: '📣', color: '#7C3AED' },
+                        { label: 'Reminders', value: loadingStats ? '-' : stats.reminders, icon: '🔔', color: '#06B6D4' },
+                        { label: 'Post Analyses', value: loadingStats ? '-' : stats.posts, icon: '📊', color: '#10B981' },
                       ].map((s) => (
                         <div key={s.label} style={{ padding: 16, borderRadius: 12, background: '#F8FAFC', border: '1px solid #E2E8F0', textAlign: 'center' }}>
                           <div style={{ fontSize: 28, marginBottom: 8 }}>{s.icon}</div>
@@ -481,7 +481,7 @@ export default function SettingsPage() {
               {/* ── DANGER ── */}
               {activeTab === 'danger' && (
                 <div className="card" style={{ padding: 28 }}>
-                  <SectionHead icon={AlertTriangle} title="Danger Zone" subtitle="Irreversible actions — proceed with caution" color="#F43F5E" />
+                  <SectionHead icon={AlertTriangle} title="Danger Zone" subtitle="Irreversible actions - proceed with caution" color="#F43F5E" />
                   <div style={{ padding: '14px 16px', borderRadius: 10, background: '#FFF5F5', border: '1px solid #FED7D7', marginBottom: 24, display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                     <AlertTriangle size={17} color="#F43F5E" style={{ flexShrink: 0, marginTop: 1 }} />
                     <p style={{ fontSize: 13, color: '#7F1D1D', lineHeight: 1.6, margin: 0 }}>Actions here are <strong>permanent</strong> and cannot be undone. Be absolutely sure before proceeding.</p>

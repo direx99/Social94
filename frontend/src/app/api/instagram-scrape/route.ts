@@ -108,7 +108,7 @@ function parseJsonLd(html: string): Partial<InstagramProfileData> {
       }
       return result;
     } catch {
-      // Malformed JSON — skip
+      // Malformed JSON - skip
     }
   }
   return {};
@@ -221,7 +221,7 @@ export async function POST(req: NextRequest) {
       html.includes('"verified":true');
 
     if (followers === 0 && !ldData.followers) {
-      // We got HTML but couldn't parse followers — Instagram is rendering JS-only
+      // We got HTML but couldn't parse followers - Instagram is rendering JS-only
       return NextResponse.json(
         {
           success: false,

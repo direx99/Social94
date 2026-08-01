@@ -26,7 +26,7 @@ const sections = [
       },
       {
         subtitle: 'Content You Analyse',
-        text: 'When you use the AI Content Quality tool, the text (and optionally images) you submit are sent to the Google Gemini API for analysis. We do not permanently store the raw content of your posts; only the resulting analysis scores and metadata are saved to your account.',
+        text: 'When you use the AI Content Quality tool, the text (and optionally images) you submit are sent to our AI providers for analysis. We do not permanently store the raw content of your posts; only the resulting analysis scores and metadata are saved to your account.',
       },
     ],
   },
@@ -43,7 +43,7 @@ const sections = [
       },
       {
         subtitle: 'AI Analysis',
-        text: 'Content submitted for AI analysis is forwarded to the Google Gemini API. Google\'s usage policies apply to this data. We do not use your content to train our own models. Analysis results are stored temporarily in your account for reference.',
+        text: 'Content submitted for AI analysis is forwarded to our AI providers. Their usage policies apply to this data. We do not use your content to train our own models. Analysis results are stored temporarily in your account for reference.',
       },
       {
         subtitle: 'Service Improvement',
@@ -64,7 +64,7 @@ const sections = [
       },
       {
         subtitle: 'Access Controls',
-        text: 'Firestore Security Rules ensure that each user can only read and write their own documents. No other user — including Social94 administrators — can access your personal data without explicit re-authentication.',
+        text: 'Firestore Security Rules ensure that each user can only read and write their own documents. No other user - including Social94 administrators - can access your personal data without explicit re-authentication.',
       },
       {
         subtitle: 'Data Retention',
@@ -84,8 +84,8 @@ const sections = [
         text: 'We use Firebase Authentication and Firestore for identity management and data storage. Firebase is governed by Google\'s Privacy Policy (policies.google.com/privacy).',
       },
       {
-        subtitle: 'Google Gemini API',
-        text: 'Content submitted for AI analysis is processed by the Google Gemini API. This processing is subject to Google\'s API Terms of Service. We do not sell or otherwise share your data with Gemini beyond what is necessary to process your analysis request.',
+        subtitle: 'AI Providers',
+        text: 'Content submitted for AI analysis is processed by our AI providers. This processing is subject to their API Terms of Service. We do not sell or otherwise share your data beyond what is necessary to process your analysis request.',
       },
       {
         subtitle: 'No Other Third Parties',

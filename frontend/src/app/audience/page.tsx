@@ -9,6 +9,7 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import { getUserStats, updateUserStats, type UserStats, defaultStats } from '@/lib/firestore';
 import { useToast } from '@/components/ui/Toast';
+import { PlatformIcon } from '@/components/ui/PlatformIcon';
 
 // ─── Platform config ──────────────────────────────────────────────────────────
 
@@ -187,7 +188,7 @@ export default function AudiencePage() {
         updateScrape(platKey, { loading: false, error: data.error ?? 'Could not fetch data.' });
       }
     } catch {
-      updateScrape(platKey, { loading: false, error: 'Network error — please try again or enter manually.' });
+      updateScrape(platKey, { loading: false, error: 'Network error - please try again or enter manually.' });
     }
   };
 
@@ -286,7 +287,7 @@ export default function AudiencePage() {
                 <div className="stat-card-header">
                   <div className={`stat-card-icon ${s.color}`}><Icon size={22} /></div>
                 </div>
-                <div className="stat-card-value">{loading ? '—' : s.value}</div>
+                <div className="stat-card-value">{loading ? '-' : s.value}</div>
                 <div className="stat-card-label">{s.label}</div>
               </div>
             );
@@ -341,7 +342,7 @@ export default function AudiencePage() {
             <div className="card-header"><span className="card-title">🌐 Platform Breakdown</span></div>
             <div className="card-body" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
               {pieData.length === 0 ? (
-                <div style={{ textAlign: 'center', flex: 1, color: 'var(--text-muted)', padding: '20px 0', fontSize: '14px' }}>No data — add your stats above</div>
+                <div style={{ textAlign: 'center', flex: 1, color: 'var(--text-muted)', padding: '20px 0', fontSize: '14px' }}>No data - add your stats above</div>
               ) : (
                 <>
                   <div style={{ width: 160, height: 160, flexShrink: 0 }}>
@@ -417,7 +418,7 @@ export default function AudiencePage() {
                     <div key={plat.key} className="form-group" style={{ margin: 0 }}>
                       {/* Label row */}
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-                        <label className="form-label" style={{ margin: 0 }}>{plat.emoji} {plat.name}</label>
+                        <label className="form-label" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}><PlatformIcon platform={plat.name} size={16} /> {plat.name}</label>
                         <button
                           type="button"
                           onClick={() => {
@@ -484,7 +485,7 @@ export default function AudiencePage() {
                             </div>
                           )}
                           <div style={{ fontSize: '11px', color: plat.mutedColor, marginTop: '8px', opacity: 0.8 }}>
-                            ℹ️ Works for public profiles. {plat.name} may block automated requests — manual entry always available.
+                            ℹ️ Works for public profiles. {plat.name} may block automated requests - manual entry always available.
                           </div>
                         </div>
                       )}

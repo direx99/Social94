@@ -90,7 +90,7 @@ export default function CampaignsPage() {
         startDate: form.startDate || 'TBD',
         endDate: form.endDate || 'TBD',
         budget: form.budget ? `$${form.budget}` : 'TBD',
-        reach: '—', engagement: '—',
+        reach: '-', engagement: '-',
       });
       setShowModal(false);
       setForm({ name: '', goal: 'Awareness', platforms: ['Instagram'], tone: 'Professional', targetAudience: '', budget: '', startDate: '', endDate: '' });
@@ -162,7 +162,7 @@ export default function CampaignsPage() {
           <div className="empty-state">
             <div className="empty-state-icon"><span style={{ fontSize: '36px' }}>📣</span></div>
             <div className="empty-state-title">{filterStatus === 'all' ? 'No campaigns yet' : `No ${filterStatus} campaigns`}</div>
-            <div className="empty-state-text">Create your first campaign and let Gemini AI generate the copy for you.</div>
+            <div className="empty-state-text">Create your first campaign and let AI generate the copy for you.</div>
             <button className="btn btn-primary" onClick={() => setShowModal(true)}><Plus size={16} />Create Campaign</button>
           </div>
         )}

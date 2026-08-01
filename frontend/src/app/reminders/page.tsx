@@ -5,6 +5,7 @@ import { Plus, Bell, Clock, Calendar, Zap, X, Repeat, Trash2, Check } from 'luci
 import { useAuth } from '@/context/AuthContext';
 import { subscribeToReminders, addReminder, deleteReminder, updateReminderStatus, type Reminder } from '@/lib/firestore';
 import { useToast } from '@/components/ui/Toast';
+import { PlatformIcon } from '@/components/ui/PlatformIcon';
 
 const platforms = ['Instagram', 'Facebook', 'Twitter/X', 'LinkedIn', 'TikTok', 'All Platforms'];
 const recurrenceOptions = ['once', 'daily', 'weekly', 'monthly'];
@@ -153,7 +154,7 @@ export default function RemindersPage() {
                 {reminders.filter((r) => r.status === 'pending').length} upcoming reminder{reminders.filter((r) => r.status === 'pending').length > 1 ? 's' : ''}
               </div>
               <div style={{ fontSize: '13px', color: '#B45309' }}>
-                Next: &ldquo;{reminders.filter((r) => r.status === 'pending')[0]?.title}&rdquo; — {reminders.filter((r) => r.status === 'pending')[0]?.datetime}
+                Next: &ldquo;{reminders.filter((r) => r.status === 'pending')[0]?.title}&rdquo; - {reminders.filter((r) => r.status === 'pending')[0]?.datetime}
               </div>
             </div>
           </div>
@@ -188,7 +189,7 @@ export default function RemindersPage() {
             return (
               <div key={reminder.id} className="reminder-card" style={{ borderLeft: `3px solid ${sc.color}` }}>
                 <div className="reminder-icon" style={{ background: `${platformColors[reminder.platform] ?? '#7C3AED'}15` }}>
-                  <span style={{ fontSize: '22px' }}>{platformEmojis[reminder.platform] ?? '🔔'}</span>
+                  <PlatformIcon platform={reminder.platform} size={22} />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap' }}>
@@ -246,7 +247,7 @@ export default function RemindersPage() {
                     {generatingMessage ? <><span className="spinner spinner-sm" />Generating...</> : <><Zap size={13} />AI Generate</>}
                   </button>
                 </label>
-                <textarea className="form-input form-textarea" placeholder="Enter your reminder message, or click 'AI Generate' to draft with Gemini AI..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ minHeight: '120px' }} />
+                <textarea className="form-input form-textarea" placeholder="Enter your reminder message, or click 'AI Generate' to draft with AI..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ minHeight: '120px' }} />
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div className="form-group">
