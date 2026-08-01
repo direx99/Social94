@@ -256,7 +256,7 @@ export default function AudiencePage() {
               <Zap size={18} color="white" />
             </div>
             <div style={{ flex: 1 }}>
-              <div className="ai-badge" style={{ marginBottom: '8px' }}><span className="ai-dot" />Gemini AI Insight</div>
+              <div className="ai-badge" style={{ marginBottom: '8px' }}><span className="ai-dot" />AI Insight</div>
               <p style={{ fontSize: '14px', color: 'var(--text-primary)', lineHeight: 1.6, margin: 0 }}>{insight}</p>
             </div>
             <button onClick={() => setInsight('')} style={{ marginLeft: 'auto', color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px' }}>×</button>

@@ -129,7 +129,7 @@ export default function DashboardPage() {
               <Zap size={22} />
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '13px', fontWeight: 700, opacity: 0.85, marginBottom: '6px' }}>✨ Gemini AI Insight</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, opacity: 0.85, marginBottom: '6px' }}>✨ Analytic Insight</div>
               <p style={{ fontSize: '14px', opacity: 0.95, lineHeight: 1.6, margin: 0 }}>{aiInsight}</p>
             </div>
             <button onClick={() => setAiInsight('')} style={{ background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', borderRadius: '50%', width: 28, height: 28, cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
