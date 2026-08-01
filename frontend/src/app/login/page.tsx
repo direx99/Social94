@@ -127,10 +127,6 @@ export default function LoginPage() {
 
         {/* Powered by */}
         <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
-          <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Zap size={13} />
-            Powered by AI
-          </div>
         </div>
       </div>
 

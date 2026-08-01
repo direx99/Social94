@@ -115,7 +115,7 @@ export function Sidebar() {
             padding: '16px',
             color: 'white',
           }}>
-            <div style={{ fontSize: '13px', fontWeight: 700, marginBottom: '6px' }}>✨ Powered by AI</div>
+            <div style={{ fontSize: '13px', fontWeight: 700, marginBottom: '6px' }}>✨ Pro Features</div>
             <div style={{ fontSize: '12px', opacity: 0.85, marginBottom: '12px' }}>Unlock unlimited AI analysis</div>
             <button onClick={() => setShowProModal(true)} style={{
               background: 'white', color: '#7C3AED', border: 'none',

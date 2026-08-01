@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   keywords: "social media marketing, automation, audience analytics, content quality, AI marketing",
   openGraph: {
     title: "Social94",
-    description: "Automated Social Media Marketing Tool powered by AI",
+    description: "Automated Social Media Marketing Tool",
     type: "website",
   },
 };

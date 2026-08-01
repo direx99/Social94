@@ -172,7 +172,7 @@ export default function ContentPage() {
           <button className="btn btn-secondary btn-sm" onClick={() => setShowHistory(!showHistory)}>
             <History size={14} />History ({history.length})
           </button>
-          <div className="ai-badge"><span className="ai-dot" />Powered by AI</div>
+          <div className="ai-badge"><span className="ai-dot" />AI Analysis</div>
         </div>
       </div>
 

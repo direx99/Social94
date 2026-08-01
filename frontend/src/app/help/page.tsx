@@ -36,7 +36,7 @@ const faqs = [
     items: [
       {
         q: 'How many AI analyses can I run per day?',
-        a: 'On the Free plan you can run up to 5 AI content analyses per day. Upgrading to Pro gives you unlimited daily analyses, priority processing, and access to advanced image analysis features powered by AI.',
+        a: 'On the Free plan you can run up to 5 AI content analyses per day. Upgrading to Pro gives you unlimited daily analyses, priority processing, and access to advanced image analysis features.',
       },
       {
         q: 'How accurate are the AI insights?',
