@@ -127,6 +127,7 @@ export default function SettingsPage() {
   const [deletingAccount, setDeletingAccount] = useState(false);
   const [stats, setStats] = useState({ campaigns: 0, reminders: 0, posts: 0 });
   const [loadingStats, setLoadingStats] = useState(true);
+  const [showProModal, setShowProModal] = useState(false);
 
   const toast = (message: string, type: ToastType = 'success') => {
     const id = toastId + 1;
@@ -385,7 +386,7 @@ export default function SettingsPage() {
                         <div style={{ fontSize: 15, fontWeight: 700 }}>Free Plan</div>
                         <div style={{ fontSize: 13, color: '#475569', marginTop: 2 }}>5 AI analyses/day · 10 campaigns · 50 reminders</div>
                       </div>
-                      <button className="btn btn-primary btn-sm" style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Zap size={13} />Upgrade Pro</button>
+                      <button className="btn btn-primary btn-sm" onClick={() => setShowProModal(true)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Zap size={13} />Upgrade Pro</button>
                     </div>
                   </div>
                 </>
@@ -536,6 +537,22 @@ export default function SettingsPage() {
           </div>
         </div>
       </div>
+
+      {/* Coming Soon Modal */}
+      {showProModal && (
+        <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && setShowProModal(false)} style={{ zIndex: 9999 }}>
+          <div className="modal" style={{ maxWidth: 320, textAlign: 'center', padding: '32px 24px' }}>
+            <div style={{ fontSize: 40, marginBottom: 16 }}>🚀</div>
+            <h2 style={{ fontSize: 20, fontWeight: 800, marginBottom: 8, color: 'var(--text-primary)' }}>Coming Soon</h2>
+            <p style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 24, lineHeight: 1.5 }}>
+              The Pro plan is currently under development and will be available soon!
+            </p>
+            <button className="btn btn-primary" onClick={() => setShowProModal(false)} style={{ width: '100%', justifyContent: 'center' }}>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
