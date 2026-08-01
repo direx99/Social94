@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface InstagramProfileData {
   username: string;
@@ -14,7 +13,6 @@ export interface InstagramProfileData {
   engagementEstimate: number | null; // rough estimate: null if unavailable
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 /**
  * Extract a username from common Instagram URL formats or bare username.
@@ -114,7 +112,6 @@ function parseJsonLd(html: string): Partial<InstagramProfileData> {
   return {};
 }
 
-// ─── Route Handler ────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   try {
@@ -131,6 +128,57 @@ export async function POST(req: NextRequest) {
         { success: false, error: 'Could not parse a valid Instagram username from the provided input.' },
         { status: 400 },
       );
+    }
+
+    const apifyToken = process.env.APIFY_API_TOKEN;
+
+    if (apifyToken) {
+      try {
+        const apifyUrl = `https://api.apify.com/v2/acts/apify~instagram-profile-scraper/run-sync-get-dataset-items?token=${apifyToken}`;
+        const apifyRes = await fetch(apifyUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ usernames: [username] }),
+        });
+        
+        if (apifyRes.ok) {
+          const apifyData = await apifyRes.json();
+          if (apifyData && apifyData.length > 0) {
+            const profile = apifyData[0];
+            const finalFollowers = profile.followersCount || 0;
+            
+            let engagementEstimate: number | null = null;
+            if (finalFollowers > 0) {
+              if (finalFollowers < 10_000) engagementEstimate = 7.2;
+              else if (finalFollowers < 100_000) engagementEstimate = 3.8;
+              else if (finalFollowers < 1_000_000) engagementEstimate = 2.4;
+              else engagementEstimate = 1.1;
+            }
+            
+            const data: InstagramProfileData = {
+              username: profile.username || username,
+              followers: finalFollowers,
+              following: profile.followsCount || 0,
+              posts: profile.postsCount || 0,
+              bio: profile.biography || '',
+              fullName: profile.fullName || '',
+              isVerified: profile.verified || false,
+              profilePic: profile.profilePicUrlHD || profile.profilePicUrl || null,
+              engagementEstimate,
+            };
+            
+            return NextResponse.json({ success: true, data });
+          } else {
+            return NextResponse.json(
+              { success: false, error: `Instagram profile "@${username}" not found.` },
+              { status: 200 }
+            );
+          }
+        }
+      } catch (err) {
+        console.error('[instagram-scrape] Apify error:', err);
+        // Fall back to the manual scraping method if Apify fails for some reason
+      }
     }
 
     const profileUrl = `https://www.instagram.com/${username}/`;
@@ -196,17 +244,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // ── Parse Open Graph meta tags ─────────────────────────────────────────
     const ogDescription = extractMeta(html, 'og:description');
     const ogTitle = extractMeta(html, 'og:title'); // e.g. "NASA (@nasa) • Instagram photos and videos"
     const ogImage = extractMeta(html, 'og:image');
 
     const { followers, following, posts } = parseOgDescription(ogDescription);
 
-    // ── Parse JSON-LD (supplemental) ───────────────────────────────────────
     const ldData = parseJsonLd(html);
 
-    // ── Derive fullName from og:title ──────────────────────────────────────
     let fullName = ldData.fullName ?? '';
     if (!fullName && ogTitle) {
       // "NASA (@nasa) • Instagram photos and videos" → "NASA"
@@ -214,7 +259,6 @@ export async function POST(req: NextRequest) {
       if (titleMatch) fullName = titleMatch[1].trim();
     }
 
-    // ── Verified badge ─────────────────────────────────────────────────────
     const isVerified =
       html.includes('"is_verified":true') ||
       html.includes("'is_verified':true") ||
@@ -234,7 +278,6 @@ export async function POST(req: NextRequest) {
 
     const finalFollowers = ldData.followers ?? followers;
 
-    // ── Rough engagement estimate ──────────────────────────────────────────
     // Industry average for Instagram: ~1-3% for large accounts, ~5-10% for small
     // We can't get actual engagement without the API, so we estimate by follower tier
     let engagementEstimate: number | null = null;

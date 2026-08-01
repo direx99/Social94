@@ -35,7 +35,6 @@ export default function ContentPage() {
   const [showHistory, setShowHistory] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  // ── image state ──────────────────────────────────────────────────────────
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -52,7 +51,6 @@ export default function ContentPage() {
     return unsub;
   }, [user]);
 
-  // ── image helpers ─────────────────────────────────────────────────────────
   const applyImage = (file: File) => {
     if (!ALLOWED_TYPES.includes(file.type)) {
       showToast('Only JPEG, PNG, WebP, or GIF images are supported', 'error'); return;
@@ -87,7 +85,6 @@ export default function ContentPage() {
   const onDragOver = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(true); };
   const onDragLeave = () => setIsDragging(false);
 
-  // ── analyze ───────────────────────────────────────────────────────────────
   const analyze = async () => {
     if (!content.trim() && !imageFile) {
       showToast('Please enter some content or upload an image to analyze', 'error'); return;

@@ -45,7 +45,6 @@ export async function POST(req: NextRequest) {
     let imageBase64: string | null = null;
     let mimeType = 'image/jpeg';
 
-    // ── multipart/form-data (image upload) ──────────────────────────────────
     if (contentType.includes('multipart/form-data')) {
       const form = await req.formData();
       content = (form.get('content') as string) ?? '';
@@ -59,7 +58,6 @@ export async function POST(req: NextRequest) {
         imageBase64 = Buffer.from(arrayBuffer).toString('base64');
       }
     } else {
-      // ── application/json (text-only, backward-compatible) ─────────────────
       const body = await req.json();
       content = body.content ?? '';
       platforms = body.platforms ?? [];

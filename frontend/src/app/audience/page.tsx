@@ -11,7 +11,6 @@ import { getUserStats, updateUserStats, type UserStats, defaultStats } from '@/l
 import { useToast } from '@/components/ui/Toast';
 import { PlatformIcon } from '@/components/ui/PlatformIcon';
 
-// ─── Platform config ──────────────────────────────────────────────────────────
 
 const PLATFORMS = [
   { key: 'instagram', name: 'Instagram', emoji: '📸', color: '#E1306C', bgLight: '#FFF0F5', borderColor: '#F48FB1', textColor: '#880E4F', mutedColor: '#AD1457', placeholder: 'https://instagram.com/nasa or @nasa', apiRoute: '/api/instagram-scrape', apiKey: 'url' },
@@ -29,7 +28,6 @@ const pieColors: Record<PlatformKey, string> = {
   youtube: '#FF0000',
 };
 
-// ─── Scrape state per platform ────────────────────────────────────────────────
 
 type ScrapeState = {
   show: boolean;
@@ -41,7 +39,6 @@ type ScrapeState = {
 
 const initScrape = (): ScrapeState => ({ show: false, url: '', loading: false, error: '', success: '' });
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function AudiencePage() {
   const { user } = useAuth();
@@ -92,7 +89,6 @@ export default function AudiencePage() {
     });
   }, [user]);
 
-  // ── Save ────────────────────────────────────────────────────────────────────
 
   const handleSaveStats = async () => {
     if (!user) return;
@@ -145,7 +141,6 @@ export default function AudiencePage() {
     setSaving(false);
   };
 
-  // ── Per-platform auto-fill ───────────────────────────────────────────────────
 
   const updateScrape = (key: PlatformKey, patch: Partial<ScrapeState>) =>
     setScrape((prev) => ({ ...prev, [key]: { ...prev[key], ...patch } }));
@@ -192,7 +187,6 @@ export default function AudiencePage() {
     }
   };
 
-  // ── AI Insight ───────────────────────────────────────────────────────────────
 
   const fetchInsight = async () => {
     setLoadingInsight(true);
@@ -209,7 +203,6 @@ export default function AudiencePage() {
     setLoadingInsight(false);
   };
 
-  // ── Derived chart data ───────────────────────────────────────────────────────
 
   const pieData = (stats.platformStats ?? [])
     .filter((p) => p.followers > 0)
@@ -228,7 +221,6 @@ export default function AudiencePage() {
     { label: 'New Followers', value: stats.newFollowers >= 1000 ? `${(stats.newFollowers / 1000).toFixed(1)}K` : stats.newFollowers.toString(), icon: ArrowUpRight, color: 'amber' },
   ];
 
-  // ── Render ───────────────────────────────────────────────────────────────────
 
   return (
     <div>

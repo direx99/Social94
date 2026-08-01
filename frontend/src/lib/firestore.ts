@@ -16,7 +16,6 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface Campaign {
   id?: string;
@@ -99,7 +98,6 @@ export interface UserProfile {
   plan: 'free' | 'pro';
 }
 
-// ─── Default Stats ─────────────────────────────────────────────────────────────
 
 export const defaultStats: UserStats = {
   totalReach: 0,
@@ -134,7 +132,6 @@ export const defaultStats: UserStats = {
   ],
 };
 
-// ─── User Profile ─────────────────────────────────────────────────────────────
 
 export async function createUserProfile(uid: string, data: Omit<UserProfile, 'createdAt' | 'plan'>) {
   const userRef = doc(db, 'users', uid);
@@ -153,7 +150,6 @@ export async function createUserProfile(uid: string, data: Omit<UserProfile, 'cr
   }
 }
 
-// ─── Stats ────────────────────────────────────────────────────────────────────
 
 export async function getUserStats(uid: string): Promise<UserStats> {
   const ref = doc(db, 'users', uid, 'meta', 'stats');
@@ -167,7 +163,6 @@ export async function updateUserStats(uid: string, stats: Partial<UserStats>) {
   await setDoc(ref, { ...stats, lastUpdated: serverTimestamp() }, { merge: true });
 }
 
-// ─── Campaigns ────────────────────────────────────────────────────────────────
 
 export function subscribeToCampaigns(uid: string, callback: (campaigns: Campaign[]) => void): Unsubscribe {
   const q = query(collection(db, 'users', uid, 'campaigns'), orderBy('createdAt', 'desc'));
@@ -197,7 +192,6 @@ export async function deleteCampaign(uid: string, campaignId: string) {
   await deleteDoc(doc(db, 'users', uid, 'campaigns', campaignId));
 }
 
-// ─── Reminders ────────────────────────────────────────────────────────────────
 
 export function subscribeToReminders(uid: string, callback: (reminders: Reminder[]) => void): Unsubscribe {
   const q = query(collection(db, 'users', uid, 'reminders'), orderBy('createdAt', 'desc'));
@@ -223,7 +217,6 @@ export async function deleteReminder(uid: string, reminderId: string) {
   await deleteDoc(doc(db, 'users', uid, 'reminders', reminderId));
 }
 
-// ─── Post Analysis History ─────────────────────────────────────────────────────
 
 export function subscribeToPostHistory(uid: string, callback: (posts: PostAnalysis[]) => void): Unsubscribe {
   const q = query(collection(db, 'users', uid, 'posts'), orderBy('analyzedAt', 'desc'));

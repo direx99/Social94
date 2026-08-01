@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Zap, X, Calendar, Target, DollarSign, Trash2, Copy } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
-import { subscribeToCampaigns, addCampaign, deleteCampaign, type Campaign } from '@/lib/firestore';
+import { subscribeToCampaigns, addCampaign, deleteCampaign, updateCampaign, type Campaign } from '@/lib/firestore';
 import { useToast } from '@/components/ui/Toast';
 
 const goals = ['Awareness', 'Engagement', 'Conversions', 'Retention', 'Traffic'];
@@ -108,6 +108,16 @@ export default function CampaignsPage() {
     } catch { showToast('Failed to delete', 'error'); }
   };
 
+  const handleStatusChange = async (id: string, newStatus: Campaign['status']) => {
+    if (!user || !id) return;
+    try {
+      await updateCampaign(user.uid, id, { status: newStatus });
+      showToast(`Campaign status updated to ${newStatus}`, 'success');
+    } catch {
+      showToast('Failed to update status', 'error');
+    }
+  };
+
   const filtered = filterStatus === 'all' ? campaigns : campaigns.filter((c) => c.status === filterStatus);
 
   const summaryStats = [
@@ -177,10 +187,24 @@ export default function CampaignsPage() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '6px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{campaign.name}</div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                      <span className={`campaign-status ${campaign.status}`}>
+                      <div className={`campaign-status ${campaign.status}`} style={{ position: 'relative', cursor: 'pointer' }}>
                         {sc.dot && <span className="status-dot" />}
-                        {campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1)}
-                      </span>
+                        <select
+                          value={campaign.status}
+                          onChange={(e) => campaign.id && handleStatusChange(campaign.id, e.target.value as Campaign['status'])}
+                          style={{
+                            position: 'absolute',
+                            top: 0, left: 0, width: '100%', height: '100%',
+                            opacity: 0, cursor: 'pointer', appearance: 'none'
+                          }}
+                        >
+                          <option value="draft">Draft</option>
+                          <option value="active">Active</option>
+                          <option value="scheduled">Scheduled</option>
+                          <option value="completed">Completed</option>
+                        </select>
+                        <span>{campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1)}</span>
+                      </div>
                       <span style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <Target size={11} />{campaign.goal}
                       </span>

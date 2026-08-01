@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface SocialProfileData {
   platform: 'facebook' | 'tiktok' | 'youtube';
@@ -13,7 +12,6 @@ export interface SocialProfileData {
   engagementEstimate: number | null;
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function parseCount(raw: string): number {
   if (!raw) return 0;
@@ -43,7 +41,6 @@ function engagementByFollowers(count: number): number {
   return 0.8;
 }
 
-// ─── Facebook scraper ─────────────────────────────────────────────────────────
 
 async function scrapeFacebook(input: string): Promise<SocialProfileData> {
   // Parse username / page slug from input
@@ -109,7 +106,6 @@ async function scrapeFacebook(input: string): Promise<SocialProfileData> {
   };
 }
 
-// ─── TikTok scraper ───────────────────────────────────────────────────────────
 
 async function scrapeTikTok(input: string): Promise<SocialProfileData> {
   const trimmed = input.trim().replace(/\/$/, '');
@@ -189,7 +185,6 @@ async function scrapeTikTok(input: string): Promise<SocialProfileData> {
   };
 }
 
-// ─── YouTube scraper ──────────────────────────────────────────────────────────
 
 async function scrapeYouTube(input: string): Promise<SocialProfileData> {
   const trimmed = input.trim().replace(/\/$/, '');
@@ -269,7 +264,6 @@ async function scrapeYouTube(input: string): Promise<SocialProfileData> {
   };
 }
 
-// ─── Route Handler ────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   try {
